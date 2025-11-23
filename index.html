@@ -1,275 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MaveRick | Apigee Dev</title>
-    <meta name="description" content="MaveRick — Apigee developer. API Security, Gateways, Observability." />
-    
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
-        :root {
-            --bg-dark: #0d1117;
-            --term-blue: #58a6ff;
-            --term-text: #c9d1d9;
-            --glass-bg: rgba(13, 17, 23, 0.85);
-            --glass-border: rgba(48, 54, 61, 0.8);
-            --accent-red: #EA4335;
-            --muted: #8b949e;
-        }
-
-        * { box-sizing: border-box; }
-
         body {
-            background-color: var(--bg-dark);
-            /* Terminal Scanline Grid Effect */
-            background-image: linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: var(--term-text);
-            font-family: 'JetBrains Mono', monospace;
+            background-color: #0d1117;
+            background-image: radial-gradient(#1f2428 1px, transparent 1px);
+            background-size: 30px 30px; /* Creates a subtle grid effect */
+            color: #c9d1d9;
+            font-family: 'JetBrains Mono', monospace; /* The Hacker Font */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
         }
-
-        /* The Main Container (Glass + Terminal Frame) */
         .container {
-            width: 100%;
-            max-width: 700px;
-            padding: 40px;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            background-color: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-            position: relative;
             text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            border: 1px solid rgba(48, 54, 61, 0.7);
+            border-radius: 16px;
+            /* Glassmorphism Effect */
+            background-color: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
-
-        /* Traffic Lights (Mac Window Style) */
-        .traffic-lights {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            gap: 8px;
-        }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-
-        /* Avatar with Glow */
-        .avatar {
+        .avatar-glow {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            border: 3px solid var(--term-blue);
-            box-shadow: 0 0 25px rgba(88, 166, 255, 0.2);
-            margin: 0 auto 20px;
-            display: block;
-            object-fit: cover;
+            border: 3px solid #EA4335;
+            box-shadow: 0 0 20px rgba(234, 67, 53, 0.4);
+            margin-bottom: 20px;
         }
-
-        h1 {
-            color: #f0f6fc;
-            margin: 0 0 8px 0;
-            letter-spacing: -1px;
-            font-size: 2rem;
-        }
-
-        .subtitle {
-            color: var(--muted);
-            font-size: 0.95em;
-            margin-bottom: 30px;
-            display: block;
-            font-weight: bold;
-        }
-
-        /* The Terminal Output Box */
-        .terminal-box {
-            background: rgba(1, 4, 9, 0.6);
-            border-left: 3px solid var(--term-blue);
-            padding: 20px;
-            border-radius: 6px;
-            text-align: left;
-            margin-bottom: 30px;
-            min-height: 180px; 
-            font-size: 0.9em;
-            line-height: 1.6;
-            white-space: pre-wrap; 
-            color: var(--term-text);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            /* Ensure it grows with text but handles overflow if needed */
-            overflow-x: hidden; 
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background: var(--term-blue);
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-            border-radius: 2px;
-            margin-left: 6px;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* dim commands, bright outputs */
-        .prompt-text { color: #6a737d; } 
-        .output-text { color: var(--term-text); font-weight: 600; } 
-
-        /* Tech Badges */
-        .badges {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 35px;
-        }
-        .badge {
-            background: rgba(56, 139, 253, 0.1);
-            border: 1px solid rgba(56, 139, 253, 0.3);
-            color: var(--term-blue);
-            padding: 6px 12px;
-            border-radius: 4px;
+        h1 { color: #f0f6fc; margin-bottom: 5px; letter-spacing: -1px; }
+        .tagline { color: #8b949e; font-size: 0.9em; display: block; margin-bottom: 30px; }
+        
+        /* Tech Tags Styling */
+        ul { list-style: none; padding: 0; }
+        li { 
+            display: inline-block; 
+            margin: 6px; 
+            padding: 8px 16px; 
+            background: rgba(56, 139, 253, 0.1); 
+            border: 1px solid rgba(56, 139, 253, 0.4); 
+            border-radius: 6px; 
             font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            gap: 8px; /* Alignment fix for icon spacing */
+            color: #58a6ff;
         }
-
-        /* Main CTA Button */
+        
+        /* The Red Button */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--accent-red), #B31412); /* Google Red */
+            margin-top: 35px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #EA4335, #B31412);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: transform 0.2s;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn:hover { transform: translateY(-2px); }
-
-        /* Mobile Fixes */
-        @media (max-width: 500px) {
-            .container { padding: 25px; }
-            h1 { font-size: 1.6rem; }
-            .terminal-box { font-size: 0.8em; }
-            .badge { font-size: 0.75em; }
+        .btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(234, 67, 53, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="container" role="region" aria-label="MaveRick terminal profile">
-        <div class="traffic-lights" aria-hidden="true">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-        </div>
-
-        <img src="https://github.com/SunnyJayaRaj.png" alt="MaveRick" class="avatar">
-
+    <div class="container">
+        <img src="https://github.com/SunnyJayaRaj.png" alt="Profile" class="avatar-glow">
+        
         <h1>MaveRick</h1>
-        <span class="subtitle"> >_ API Security • Gateways • Observability</span>
+        <span class="tagline"> <i class="fas fa-terminal"></i> Apigee Developer | API Security | Open Source</span>
+        
+        <p style="line-height: 1.8; margin-bottom: 30px;">
+            The digital world speaks in APIs, and I'm the translator.<br>
+            I build, secure, and analyze the gateways that power modern apps using <strong>Google Cloud Apigee</strong>.
+        </p>
 
-        <div class="terminal-box" id="terminal" aria-live="polite" aria-atomic="false"></div>
-
-        <div class="badges" aria-hidden="false">
-            <span class="badge"><i class="fab fa-google"></i> Apigee X</span>
-            <span class="badge"><i class="fas fa-shield-alt"></i> OAuth 2.0</span>
-            <span class="badge"><i class="fas fa-file-code"></i> OpenAPI 3.0</span>
-            <span class="badge"><i class="fas fa-rocket"></i> Postman</span>
+        <div style="text-align: left;">
+            <p style="text-align: center; color: #8b949e; margin-bottom: 15px;">— ARSENAL —</p>
+            <ul style="text-align: center;">
+                <li><i class="fab fa-google"></i> Apigee X</li>
+                <li><i class="fas fa-shield-alt"></i> OAuth 2.0</li>
+                <li><i class="fas fa-file-code"></i> OpenAPI 3.0</li>
+                <li><i class="fas fa-rocket"></i> Postman</li>
+            </ul>
         </div>
 
-        <a href="https://github.com/SunnyJayaRaj/Apigee-Lab" class="btn" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i> Explore the Lab
+        <a href="https://github.com/SunnyJayaRaj/Apigee-Lab" class="btn">
+            <i class="fab fa-github"></i> <span>Explore the Lab</span>
         </a>
     </div>
 
-    <script>
-        // Data Structure for the Terminal
-        const textData = [
-            { type: 'cmd', val: "$ whoami" },
-            { type: 'out', val: "> MaveRick — API Gateway Tinkerer" },
-            { type: 'br' },
-            { type: 'cmd', val: "$ cat mission.txt" },
-            { type: 'out', val: "> Building secure digital gateways." },
-            { type: 'out', val: "> Learning by breaking things (safely)." },
-            { type: 'br' },
-            { type: 'cmd', val: "$ ls projects" },
-            { type: 'out', val: "- Apigee-Lab/" },
-            { type: 'out', val: "- Curious-Explorer/" },
-            { type: 'out', val: "- SunnyJayaRaj.github.io/" }
-        ];
-
-        const terminal = document.getElementById('terminal');
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        async function typeLines({ charDelay = 20, lineDelay = 380 } = {}) {
-            terminal.innerHTML = ''; // Clear previous text
-            
-            for (let i = 0; i < textData.length; i++) {
-                const item = textData[i];
-
-                if (item.type === 'br') {
-                    const br = document.createElement('div');
-                    br.innerHTML = '&nbsp;';
-                    terminal.appendChild(br);
-                    if (!prefersReduced) await new Promise(r => setTimeout(r, 120));
-                    continue;
-                }
-
-                // Create the line container
-                const lineEl = document.createElement('div');
-                // Apply Dim (cmd) or Bright (out) styling
-                lineEl.className = item.type === 'cmd' ? 'prompt-text' : 'output-text';
-                terminal.appendChild(lineEl);
-
-                if (prefersReduced) {
-                    lineEl.textContent = item.val;
-                    continue;
-                }
-
-                // Type characters one by one
-                for (let c = 0; c < item.val.length; c++) {
-                    lineEl.textContent += item.val.charAt(c);
-                    await new Promise(r => setTimeout(r, charDelay + Math.random() * 10));
-                }
-
-                // Pause after line finishes
-                await new Promise(r => setTimeout(r, lineDelay + Math.random() * 80));
-            }
-
-            // Add the blinking cursor at the end
-            if (!prefersReduced) {
-                const cursor = document.createElement('span');
-                cursor.className = 'cursor';
-                terminal.appendChild(cursor);
-            }
-            
-            // Auto-scroll logic
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        // Start animation after 650ms
-        setTimeout(() => {
-            typeLines();
-        }, 650);
-    </script>
 </body>
 </html>
