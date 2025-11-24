@@ -11,9 +11,9 @@
         body {
             background-color: #0d1117;
             background-image: radial-gradient(#1f2428 1px, transparent 1px);
-            background-size: 30px 30px; /* Creates a subtle grid effect */
+            background-size: 30px 30px;
             color: #c9d1d9;
-            font-family: 'JetBrains Mono', monospace; /* The Hacker Font */
+            font-family: 'JetBrains Mono', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,7 +26,6 @@
             padding: 40px;
             border: 1px solid rgba(48, 54, 61, 0.7);
             border-radius: 16px;
-            /* Glassmorphism Effect */
             background-color: rgba(22, 27, 34, 0.85);
             backdrop-filter: blur(10px);
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
@@ -40,9 +39,19 @@
             margin-bottom: 20px;
         }
         h1 { color: #f0f6fc; margin-bottom: 5px; letter-spacing: -1px; }
-        .tagline { color: #8b949e; font-size: 0.9em; display: block; margin-bottom: 30px; }
         
-        /* Tech Tags Styling */
+        /* NEW: Style for the real name */
+        .real-name {
+            color: #8b949e;
+            font-size: 0.9em;
+            margin-top: -5px;
+            margin-bottom: 20px;
+            display: block;
+            font-style: italic;
+        }
+
+        .tagline { color: #58a6ff; font-size: 0.9em; display: block; margin-bottom: 30px; font-weight: bold; }
+        
         ul { list-style: none; padding: 0; }
         li { 
             display: inline-block; 
@@ -55,7 +64,6 @@
             color: #58a6ff;
         }
         
-        /* The Red Button */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -73,6 +81,23 @@
             transform: translateY(-3px); 
             box-shadow: 0 10px 20px rgba(234, 67, 53, 0.3);
         }
+
+        /* NEW: Styles for the Contact Links (Error #3 Fix) */
+        .social-links {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(48, 54, 61, 0.5);
+        }
+        .social-icon {
+            color: #8b949e;
+            font-size: 1.5em;
+            margin: 0 15px;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .social-icon:hover {
+            color: #EA4335;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -81,6 +106,8 @@
         <img src="https://github.com/SunnyJayaRaj.png" alt="Profile" class="avatar-glow">
         
         <h1>MaveRick</h1>
+        <span class="real-name">a.k.a "Sunny JayaRaj"</span>
+        
         <span class="tagline"> <i class="fas fa-terminal"></i> Apigee Developer | API Security | Open Source</span>
         
         <p style="line-height: 1.8; margin-bottom: 30px;">
@@ -101,6 +128,15 @@
         <a href="https://github.com/SunnyJayaRaj/Apigee-Lab" class="btn">
             <i class="fab fa-github"></i> <span>Explore the Lab</span>
         </a>
+
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sunny-jayaraju-kummu" target="_blank" class="social-icon" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:SunnyJayaRajuKummu@gmail.com" class="social-icon" title="Email Me">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
     </div>
 
 </body>
