@@ -165,6 +165,30 @@
             color: #EA4335;
             transform: scale(1.1);
         }
+        /* Clipboard fallback feedback for users without a default mail client */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(22, 27, 34, 0.95);
+            border: 1px solid rgba(88, 166, 255, 0.5);
+            color: #58a6ff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        #toast.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -201,10 +225,43 @@
             <a href="https://www.linkedin.com/in/SunnyJayaRajuKummu" target="_blank" class="social-icon" title="LinkedIn">
                 <i class="fab fa-linkedin"></i>
             </a>
-            <a href="mailto:SunnyJayaRajuKummu@gmail.com" class="social-icon" title="Email Me">
+            <a href="mailto:SunnyJayaRajuKummu@gmail.com" class="social-icon" title="Email Me" id="email-btn">
                 <i class="fas fa-envelope"></i>
             </a>
         </div>
     </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        // mailto: silently no-ops when no default mail client is configured
+        // (common on fresh macOS/Chrome). Copy the address to the clipboard
+        // as a fallback, then still let browsers with a mail handler compose.
+        (function () {
+            var EMAIL = 'SunnyJayaRajuKummu@gmail.com';
+            var btn = document.getElementById('email-btn');
+            var toast = document.getElementById('toast');
+            var timer;
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                clearTimeout(timer);
+                timer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+            }
+
+            btn.addEventListener('click', function () {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(EMAIL).then(
+                        function () { showToast('📧 ' + EMAIL + ' — copied to clipboard'); },
+                        function () { showToast('Email: ' + EMAIL); }
+                    );
+                } else {
+                    showToast('Email: ' + EMAIL);
+                }
+                // no preventDefault(): mailto: proceeds where a client exists
+            });
+        })();
+    </script>
 </body>
 </html>
